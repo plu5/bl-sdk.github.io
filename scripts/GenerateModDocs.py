@@ -307,6 +307,10 @@ def GenerateModDocs(bSoftExceptions=True):
                     modData["license"] = defaultData["license"]
                 if "types" not in modData and "types" in defaultData:
                     modData["types"] = defaultData["types"]
+                if "versions" not in modData and "versions" in defaultData:
+                    modData["versions"] = defaultData["versions"]
+                if "issues" not in modData and "issues" in defaultData:
+                    modData["issues"] = defaultData["issues"]
 
             modObject = Mod(modData, bSoftExceptions)
             modObject.ConvertToMarkdown()

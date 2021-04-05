@@ -1,23 +1,23 @@
 ---
 layout: mod
 
-authors: "juso" # Authors of the mod
-title: NoCrosshair # Title of the mod
-version: "1.0" # Version of the mod
-supported: "BL2 + TPS" # Supported games; currently can only display as "BL2", "BL2 + TPS", or "TPS"
+authors: "plu5" # Authors of the mod
+title: Sprint Adjuster # Title of the mod
+version: "1.0.0" # Version of the mod
+supported: "BL2" # Supported games; currently can only display as "BL2", "BL2 + TPS", or "TPS"
 
-tagline: "Disables your Crosshair." # A short description of the mod itself.
-description: "Disables your Crosshair." # This is set in order to keep the SEO proper
-longDescription: "Disables your Crosshair." # Description of what the mod can do
+tagline: "Change sprinting speed." # A short description of the mod itself.
+description: "Change sprinting speed." # This is set in order to keep the SEO proper
+longDescription: "- Change speed when sprinting, while preserving normal speed when not sprinting.\n- Optionally set Air Control to allow better control in the air with the movement keys, to have a better chance of stopping yourself from flinging off a cliff for instance.\n- Configurable keybinding to allow turning on and off on the fly." # Description of what the mod can do
 categories: ['Utility'] # Category of the type of mod
 
 requirements: [] # Requirements for the given mod
 requirementTitles: [] # The link-friendly name of the requirements
 
-issues: "https://github.com/juso40/bl2sdk_Mods/issues"
-download: "https://raw.githubusercontent.com/juso40/bl2sdk_Mods/master/NoCrosshair/__init__.py"
-source: "https://github.com/juso40/bl2sdk_Mods/" # Link to source code
-license: ['MIT', 'https://choosealicense.com/licenses/mit'] # License name, link about the license from https://choosealicense.com/
+issues: "https://github.com/plu5/p-borderlands/issues"
+download: "https://github.com/plu5/p-borderlands/releases/tag/v1.0.0"
+source: "https://github.com/plu5/p-borderlands/blob/main/SprintAdjuster" # Link to source code
+license: [] # License name, link about the license from https://choosealicense.com/
 
 ---
 **Contents**

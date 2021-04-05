@@ -14,7 +14,7 @@ categories: ['Utility'] # Category of the type of mod
 requirements: ['PyImgui  '] # Requirements for the given mod
 requirementTitles: ['PyImgui'] # The link-friendly name of the requirements
 
-issues: ""
+issues: "https://github.com/juso40/bl2sdk_Mods/issues"
 download: "https://github.com/juso40/bl2sdk_Mods/raw/master/InventoryEditor/InventoryEditor.zip"
 source: "https://github.com/juso40/bl2sdk_Mods/" # Link to source code
 license: ['MIT', 'https://choosealicense.com/licenses/mit'] # License name, link about the license from https://choosealicense.com/
