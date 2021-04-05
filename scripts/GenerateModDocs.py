@@ -297,20 +297,7 @@ def GenerateModDocs(bSoftExceptions=True):
         for modData in modsData["mods"]:
             # Default checkers
             if defaultData != None:
-                if "authors" not in modData and "authors" in defaultData:
-                    modData["authors"] = defaultData["authors"]
-                if "source" not in modData and "source" in defaultData:
-                    modData["source"] = defaultData["source"]
-                if "supports" not in modData and "supports" in defaultData:
-                    modData["supports"] = defaultData["supports"]
-                if "license" not in modData and "license" in defaultData:
-                    modData["license"] = defaultData["license"]
-                if "types" not in modData and "types" in defaultData:
-                    modData["types"] = defaultData["types"]
-                if "versions" not in modData and "versions" in defaultData:
-                    modData["versions"] = defaultData["versions"]
-                if "issues" not in modData and "issues" in defaultData:
-                    modData["issues"] = defaultData["issues"]
+                modData = dict(list(defaultData.items()) + list(modData.items()))
 
             modObject = Mod(modData, bSoftExceptions)
             modObject.ConvertToMarkdown()

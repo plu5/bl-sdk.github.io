@@ -72,7 +72,7 @@ You can download {{page.title}} here: [Download Link]({{page.download}})
 {% endif %}
 
 {% if page.issues != "" %}
-Report issues here: [{{page.issues}}]({{page.issues}})
+Report issues here: [Issue Tracker]({{page.issues}})
 {% endif %}
 
 {% if page.source != "" %}
@@ -80,5 +80,5 @@ View the source code here: [Source Code]({{page.source}})
 {% endif %}
 
 {% if page.license.size > 0 %}
-This mod is licensed using {{page.license[0]}} <sup>[?]({{page.license[1]}})
+This mod is licensed using {{page.license[0]}} <sup>[?]({{page.license[1]}})</sup>
 {% endif %}
