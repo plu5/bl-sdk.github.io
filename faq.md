@@ -4,7 +4,7 @@ title: FAQ
 permalink: /faq/
 ---
 
-If you have a question that is not answered here, you can search on [Discord](https://discord.gg/VJXtHvh) and if you do not find it ask there.
+If you have a question that is not answered here, you can search on [Discord](https://discord.gg/VJXtHvh), and if you do not find it, ask there.
 
 **Page Contents**
 * TOC
@@ -196,8 +196,7 @@ If you do not return True the function you hooked into will not continue executi
 * Look through decompiled UPKs, as explained in [the Writing SDK Mods on the main page]({{ site.baseurl }}{% link index.md %}#writing-sdk-mods)
 * Look through objects in BLCM Object Explorer, and other tools described in [BLCM wiki](https://github.com/BLCM/BLCMods/wiki)
 * Look at the source of [existing PythonSDK mods]({{ site.baseurl }}{% link mods.md %})
-* Even source of text mods can help, as they can tell you what objects you can modify.
-\n
+* Even source of text mods can help, as they can tell you what objects you can modify.<br/>
 
 ## How to publish my mod?
 Upload your mod(s) to a public repository, then to add it to this site follow the steps on [the Adding to the Database section on the main page]({{ site.baseurl }}{% link index.md %}#adding-to-the-database).
