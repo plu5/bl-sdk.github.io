@@ -185,7 +185,7 @@ Now "hi" will be outputted to the console whenever F3 is pressed while ingame.
 
 Any bindings can be customised by the user in Options > Keyboard / Mouse > Modded Key Bindings.
 
-You can also have bindings the mod performs when a key is pressed in the mods menu by modifiying `SettingsInput` instance variable of your mod class. This works a bit differently, just a dictionary mapping `key`: `function`, where both are `str`. See the `SDKMod` base class in `ModMenu/ModObjects.py`.
+You can also have bindings the mod performs when a key is pressed in the mods menu by modifiying `SettingsInput` instance variable of your mod class. This works a bit differently, just a dictionary mapping `key`: `action`, where both are `str`. Handle the different actions by overriding `SettingsInputPressed`. See the `SDKMod` base class in `ModMenu/ModObjects.py`.
 
 ## How to hook into game functions?
 You can use the `@Hook` decorator. PythonSDK will handle the registering and unregistering of hooks itself, so long as you remember to call the base class Enable/Disable if you override those methods.
