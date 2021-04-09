@@ -207,7 +207,7 @@ class MyMod(ModMenu.SDKMod):
 If you do not return True the function you hooked into will not continue executing as normal, which is sometimes desired, but if you do not want that remember to return True. If I forget return True in this case, I spawn in a weird place, don’t have any money, eridium, or anything in my inventory, among other things, because we diverted the logic ordinarily handling all that.
 
 ## How to know what game objects to modify?
-* Look through decompiled UPKs, as explained in [the Writing SDK Mods on the main page]({{ site.baseurl }}{% link index.md %}#writing-sdk-mods)
+* Look through decompiled UPKs, as explained in [the Writing SDK Mods section on the main page]({{ site.baseurl }}{% link index.md %}#writing-sdk-mods)
 * Look through objects in BLCM Object Explorer, and other tools described in [BLCM wiki](https://github.com/BLCM/BLCMods/wiki)
 * Look at the source of [existing PythonSDK mods]({{ site.baseurl }}{% link mods.md %})
 * Even source of text mods can help, as they can tell you what objects you can modify.
