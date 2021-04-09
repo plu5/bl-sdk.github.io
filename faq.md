@@ -4,17 +4,24 @@ title: FAQ
 permalink: /faq/
 ---
 
+If you have a question that is not answered here, you can search on [Discord](https://discord.gg/VJXtHvh) and if you do not find it ask there.
+
 **Page Contents**
 * TOC
 {:toc}
 
+<p></p>
+
 # User FAQ
 ## How to start using PythonSDK mods?
 Follow the steps described on [the main page]({{ site.baseurl }}{% link index.md %}).
-## Can I use PythonSDK mods with text mods / BLCM mods?
+
+## Can I use PythonSDK mods with text mods?
 Yes. Usual compatibility concerns still apply, like if several mods change the same variables they will interfere with each other. This is the case regardless of whether the mods are PythonSDK mods or text mods.
 ## What is the difference between PythonSDK mods and text mods?
 Text mods can only modify objects once; when run. PythonSDK mods can modify dynamically generated objects and run arbitrary game functions whenever they please.
+
+<hr/>
 
 # Developer FAQ
 ## How do I create a new mod?
@@ -38,7 +45,7 @@ Text mods can only modify objects once; when run. PythonSDK mods can modify dyna
    ```
 3. Launch the game. Your mod should now appear in the mod manager. If it doesn’t, console output / contents of `python-sdk.log` (which can be found in your `Win32` folder, one folder up from the Mods folder) should give a clue as to why.
 
-## How to avoid having to restart the game to test my mod every time I make changes?
+## How to reload my mod without having to restart the game?
 Add the following to your `__init__.py` **before** RegisterMod is called:
 ```python
 if __name__ == "__main__":
@@ -87,16 +94,19 @@ Now when you disable your mod you should see "I sleep." in the console output. R
 
 For other functions you can override, check the `SDKMod` base class, defined in `ModMenu/ModObjects.py` in the Mods folder.
 
-## How to save enabled state, so that if user enables the mod it will be automatically enabled on subsequent runs?
-Add the following class variable to your mod class:
+## How to save enabled state?
+`SaveEnabledState` allows you to indicate whether your mod should be automatically enabled on subsequent runs if the user enabled it.
+
+Values it can be set to:
+* `NotSaved`: The enabled state is not saved.
+* `LoadWithSettings`: The enabled state is saved, and the mod is enabled when the mod settings are loaded.
+* `LoadOnMainMenu`: The enabled state is saved, and the mod is enabled upon reaching the main menu - after hotfixes are all setup and all the normal packages are loaded.
+
+For example, to set it to `LoadWithSettings` add the following class variable to your mod class:
 ```python
 SaveEnabledState: ModMenu.EnabledSaveType = ModMenu.EnabledSaveType.LoadWithSettings
 ```
 This will save your mod’s enabled state in settings.json, and the mod will be enabled when the mod settings are loaded.
-
-Other things `EnabledSaveType`s you can set this to:
-* `NotSaved`: The enabled state is not saved.
-* `LoadOnMainMenu`: The enabled state is saved, and the mod is enabled upon reaching the main menu - after hotfixes are all setup and all the normal packages are loaded.
 
 ## How to add options to the options menu?
 Instantiate your options and add them to the `Options` instance variable of your mod class.
@@ -187,6 +197,8 @@ If you do not return True the function you hooked into will not continue executi
 * Look through objects in BLCM Object Explorer, and other tools described in [BLCM wiki](https://github.com/BLCM/BLCMods/wiki)
 * Look at the source of [existing PythonSDK mods]({{ site.baseurl }}{% link mods.md %})
 * Even source of text mods can help, as they can tell you what objects you can modify.
+
+<br/>
 
 ## How to publish my mod?
 Upload your mod(s) to a public repository, then to add it to this site follow the steps on [the Adding to the Database section on the main page]({{ site.baseurl }}{% link index.md %}#adding-to-the-database).
