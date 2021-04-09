@@ -18,8 +18,22 @@ Follow the steps described on [the main page]({{ site.baseurl }}{% link index.md
 
 ## Can I use PythonSDK mods with text mods?
 Yes. Usual compatibility concerns still apply, like if several mods change the same variables they will interfere with each other. This is the case regardless of whether the mods are PythonSDK mods or text mods.
+
 ## What is the difference between PythonSDK mods and text mods?
 Text mods can only modify objects once; when run. PythonSDK mods can modify dynamically generated objects and run arbitrary game functions whenever they please.
+
+## Why do I not see Mods menu after installation?
+- Ensure you have all the required files; your `Binaries/Win32` folder should have `ddraw.dll`, `pythonXX.dll`, `pythonXX.zip`, and the `Mods` subfolder. The `Mods` subfolder should contain an `__init__.py` and the various mods folders (most importantly `ModMenu`) which should each also have an `__init__.py`.
+- To be certain, download [latest](https://github.com/bl-sdk/PythonSDK/releases) again and extract and overwrite the files. [Video demonstration](https://www.youtube.com/watch?v=nvTYjFjQ-HI).
+- Ensure you have [Microsoft Visual C++ Redistributable](https://aka.ms/vs/16/release/vc_redist.x86.exe) installed.
+- Console output or the contents of `python-sdk.log` in your `Binaries/Win32` folder may contain clues as to what went wrong.
+
+If you are on Linux: PythonSDK does not yet work natively on Linux, but it seems to work well under SteamPlay/Proton and Wine. See [The README section on Linux](https://github.com/bl-sdk/PythonSDK#linux-steamplayproton-and-wine).
+
+## Why does my game crash/freeze?
+If you are running a mod or modpack that modifies skills (such as Skill Randomizer, Exodus), it will crash if you try to make a new character with those mods enabled. First make the new character, then enable those mods.
+
+If that is not your situation, try to narrow down the mod that causes the issue by disabling all other mods and restarting to see if it still happens, and when you find the culprit: contact the mod author, if it’s a large modpack they may have a discord server you can ask on, or create an issue on their mod’s repository if there is one.
 
 <hr/>
 
