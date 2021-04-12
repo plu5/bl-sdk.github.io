@@ -86,7 +86,7 @@ Override the `Enable` instance method, e.g.:
 ```python
 class MyMod(ModMenu.SDKMod):
     ...
-    def Enable(self):
+    def Enable(self) -> None:
         super.Enable()
         unrealsdk.Log("I ARISE!")
 ```
@@ -98,7 +98,7 @@ Cleanup functionality can go in the `Disable` instance method:
 
 ```python
     ...
-    def Disable(self):
+    def Disable(self) -> None:
         unrealsdk.Log("I sleep.")
         super.Disable()
 ```
@@ -131,14 +131,16 @@ Here is an example for adding a `Boolean` option:
 ```python
 class MyMod(ModMenu.SDKMod):
     ...
-    def __init__(self):
+    def __init__(self) -> None:
+        super().__init__()
+
         self.MyBoolean = ModMenu.Options.Boolean(
             Caption="Set My Boolean",
             Description="Whether My Boolean should be on.",
             StartingValue=True,
             Choices=["No", "Yes"]  # False, True
         )
-        
+
         self.Options = [
             self.MyBoolean,
         ]
@@ -150,7 +152,7 @@ To handle changes to this value in real time, you can override the method `ModOp
 
 ```python
     ...
-    def ModOptionChanged(self, option, new_value):
+    def ModOptionChanged(self, option: ModMenu.Options.Base, new_value) -> None:
         if option == self.MyBoolean:
             if new_value:
                 unrealsdk.Log("You turned on My Boolean")
@@ -162,7 +164,9 @@ Note that this function is called before the change to CurrentValue occurred, so
 
 Also note that for backwards-compatibility reasons, upon enable of your mod this function will be called for every option that is not in a `Nested`.
 
-## How to add keybinds?
+You can change the values of options programmatically, but make sure to call `ModMenu.SettingsManager.SaveModSettings(mod: ModObjects.SDKMod)` afterwards (passing an instance of your mod, or `self` if called from within your mod class) or the new values will not be updated in the mod’s `settings.json`.
+
+## How to add game keybinds?
 See `ModMenu/KeybindManager.py`.
 
 Instantiate your keybinds and add them to the `Keybinds` instance variable of your mod class.
@@ -171,7 +175,7 @@ Here is an example:
 
 ```python
 ...
-def sayHi():
+def sayHi() -> None:
     unrealsdk.Log("hi")
 
 class MyMod(ModMenu.SDKMod):
@@ -185,7 +189,28 @@ Now "hi" will be outputted to the console whenever F3 is pressed while ingame.
 
 Any bindings can be customised by the user in Options > Keyboard / Mouse > Modded Key Bindings.
 
-You can also have bindings the mod performs when a key is pressed in the mods menu by modifiying `SettingsInput` instance variable of your mod class. This works a bit differently, just a dictionary mapping `key`: `action`, where both are `str`. Handle the different actions by overriding `SettingsInputPressed`. See the `SDKMod` base class in `ModMenu/ModObjects.py`.
+## How to add mod manager keybinds?
+You can have bindings the mod performs when a key is pressed in the mods menu, just like the default `Enable` by pressing `Enter`, by modifying `SettingsInput` instance variable of your mod class. This is a dictionary mapping `key`: `action`, where both are `str`. Handle the different actions by overriding `SettingsInputPressed`. See the `SDKMod` base class in `ModMenu/ModObjects.py`.
+
+Here is an example:
+
+```python
+def sayHi() -> None:
+    unrealsdk.Log("hi")
+
+class MyMod(ModMenu.SDKMod):
+    ...
+    SettingsInputs = ModMenu.SDKMod.SettingsInputs
+    SettingsInputs["H"] = "Say hi"
+    
+    def SettingsInputPressed(self, action: str) -> None:
+        if action == "Say hi":
+            sayHi()
+        else:
+            super().SettingsInputPressed(action)
+```
+
+Now "hi" will be outputted to the console whenever H is pressed while the mod is selected in the mod manager.
 
 ## How to hook into game functions?
 You can use the `@Hook` decorator. PythonSDK will handle the registering and unregistering of hooks itself, so long as you remember to call the base class Enable/Disable if you override those methods.
@@ -199,7 +224,7 @@ Example:
 class MyMod(ModMenu.SDKMod):
     ...
     @ModMenu.Hook("WillowGame.WillowPlayerController.SpawningProcessComplete")
-    def onSpawn(self, caller, function, params):
+    def onSpawn(self, caller: unrealsdk.UObject, function: unrealsdk.UFunction, params: unrealsdk.FStruct) -> bool:
         unrealsdk.Log("onSpawn called")
         return True
 ```
