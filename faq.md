@@ -77,8 +77,7 @@ if __name__ == "__main__":
 ```
 Now you should be able to reload your mod by running `pyexec ModFolderName/__init__.py` (change ModFolderName to the name of the folder your mod is in).
 
-Note that restarting your mod like this is not quite the same as restarting the game, as it does not restart game state, so it will not be a clean slate and your mod could potentially behave differently than if you were to restart.
-A good practice is to restore anything you’ve changed back to what it was in your mod class `Disable` method.
+Note that this code snippet is a workaround more than anything, and could break in certain situations. Restarting your mod like this is not the same as restarting the game, as it does not restart game state, so it will not be a clean slate and your mod could potentially behave differently than if you were to restart.
 
 ## How to make my mod do things when it’s enabled?
 Override the `Enable` instance method, e.g.:
@@ -105,6 +104,8 @@ Cleanup functionality can go in the `Disable` instance method:
 `super.Disable()` calls the base class `Disable` method, which removes any hooks or network methods.
 
 Now when you disable your mod you should see "I sleep." in the console output. Replace that with whatever you want to do upon disable.
+
+A good practice is to restore anything you’ve changed back to what it was in the `Disable` method.
 
 For other functions you can override, check the `SDKMod` base class, defined in `ModMenu/ModObjects.py` in the Mods folder.
 
@@ -162,9 +163,9 @@ To handle changes to this value in real time, you can override the method `ModOp
 
 Note that this function is called before the change to CurrentValue occurred, so we check `new_value` and not `self.MyBoolean.CurrentValue`.
 
-Also note that for backwards-compatibility reasons, upon enable of your mod this function will be called for every option that is not in a `Nested`.
+Also note that for backwards-compatibility reasons, upon enable of your mod this function will be called for every option that is not in a `Nested`. Do not rely on this functionality, as it may be removed in future.
 
-You can change the values of options programmatically, but make sure to call `ModMenu.SettingsManager.SaveModSettings(mod: ModObjects.SDKMod)` afterwards (passing an instance of your mod, or `self` if called from within your mod class) or the new values will not be updated in the mod’s `settings.json`.
+You can change the values of options programmatically, but make sure to call `ModMenu.SaveModSettings(mod: ModObjects.SDKMod)` afterwards (passing an instance of your mod, or `self` if called from within your mod class) or the new values will not be updated in the mod’s `settings.json`.
 
 ## How to add game keybinds?
 See `ModMenu/KeybindManager.py`.
