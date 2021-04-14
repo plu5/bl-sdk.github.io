@@ -284,7 +284,7 @@ To explore these functions you can run them in the console like `py unrealsdk.Lo
 You will notice what you get can depend on the context, like the function above will have a different `WillowPlayerPawn` instance in the second position in the list depending on the character class you have selected. Also, while on the menu on your own, you just see the two instances (the default instance and your pawn), whereas while ingame with other players, you will also see other instances on that list.
 
 **On `ClassName` and `ObjectFullName`:**
-* In BLCM Object Explorer, objects are presented like `GlobalsDefinition'GD_Globals.General.Globals'`. The part outside of the quote marks (`GlobalsDefinition`) is the `ClassName`, and the part inside of the quote marks (`GD_Globals.General.Globals`) is the `ObjectFullName`.
+* In BLCMM Object Explorer, objects are presented like `GlobalsDefinition'GD_Globals.General.Globals'`. The part outside of the quote marks (`GlobalsDefinition`) is the `ClassName`, and the part inside of the quote marks (`GD_Globals.General.Globals`) is the `ObjectFullName`.
 * In UE Explorer you cannot see instances, just classes, but it allows you to see class definitions which can let you see how the game gets the instance you are interested in rather than getting it by name. More on that later.
 * In the `FindAll` Log output, for each item on the list the part before the space is the `ClassName`, and the part after the space is the `ObjectFullName`.
 
