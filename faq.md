@@ -273,11 +273,11 @@ You can discuss what you’re trying to do on the [Discord](https://discord.gg/V
 
 ## How to access the objects I want to modify?
 The following unrealsdk functions may be of use:
-* **`unrealsdk.FindAll(ClassName: str)`:** Returns a list of `unrealsdk.UObject`s found, or raises RuntimeError if none found.
-* **`unrealsdk.FindClass(ClassName: str[, Lookup: bool = false])`:** Returns a `unrealsdk.UClass`, or `None` if not found.
-* **`unrealsdk.FindObject(ClassName: str, ObjectFullName: str)`:** Returns a `unrealsdk.UObject`, or `None` if not found.
-* **`unrealsdk.FindObject(Class: unrealsdk.UClass, ObjectFullName: str)`:** Returns a `unrealsdk.UObject`, or `None` if not found.
-* **`unrealsdk.GetEngine()`:** Returns a `unrealsdk.UObject` `WillowGameEngine`. This is often used to get our player’s `PlayerController`, which can be done like this: `unrealsdk.GetEngine().GamePlayers[0].Actor`. In UE Explorer, see both `WillowGameEngine` from `WillowGame.upk` and `Engine` from `Engine.upk` for other things you can do with it.
+* <b>`unrealsdk.FindAll(ClassName: str)`:</b> Returns a list of `unrealsdk.UObject`s found, or raises RuntimeError if none found.
+* <b>`unrealsdk.FindClass(ClassName: str[, Lookup: bool = false])`:</b> Returns a `unrealsdk.UClass`, or `None` if not found.
+* <b>`unrealsdk.FindObject(ClassName: str, ObjectFullName: str)`:</b> Returns a `unrealsdk.UObject`, or `None` if not found.
+* <b>`unrealsdk.FindObject(Class: unrealsdk.UClass, ObjectFullName: str)`:</b> Returns a `unrealsdk.UObject`, or `None` if not found.
+* <b>`unrealsdk.GetEngine()`:</b> Returns a `unrealsdk.UObject` `WillowGameEngine`. This is often used to get our player’s `PlayerController`, which can be done like this: `unrealsdk.GetEngine().GamePlayers[0].Actor`. In UE Explorer, see both `WillowGameEngine` from `WillowGame.upk` and `Engine` from `Engine.upk` for other things you can do with it.
 
 To explore these functions you can run them in the console like `py unrealsdk.Log(unrealsdk.FindAll("WillowPlayerPawn"))` and see what you get.
 
