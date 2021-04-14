@@ -305,7 +305,10 @@ Example snippet from apple’s [Crowd Control](https://bl-sdk.github.io/mods/Bor
 
 **Getting a specific object by looking at the way the game gets it:**
 
-For example, let’s say you are interested in `MissionTracker`, which you found while exploring `WillowGame.upk` in UE Explorer. Press Ctrl+Shift+F to search in all classes for references to this object. In many places we see it being accessed with the following: `WillowGameReplicationInfo(WorldInfo.GRI).MissionTracker`. In `Engine.upk`, you can see the `Engine` has a function `GetCurrentWorldInfo()`. So, let’s try to do `unrealsdk.GetEngine().GetCurrentWorldInfo().GRI.MissionTracker`. You can try `unrealsdk.Log(unrealsdk.GetEngine().GetCurrentWorldInfo().GRI.MissionTracker)` in the console and see what you get.
+For example, let’s say you are interested in `MissionTracker`, which you found while exploring `WillowGame.upk` in UE Explorer.
+1. Press Ctrl+Shift+F to search in all classes for references to this object. In many places we see it being accessed with the following: `WillowGameReplicationInfo(WorldInfo.GRI).MissionTracker`.
+2. In `Engine.upk`, you can see the `Engine` class has a function `GetCurrentWorldInfo()`.
+3. So, let’s try to do `unrealsdk.GetEngine().GetCurrentWorldInfo().GRI.MissionTracker`. You can try `py unrealsdk.Log(unrealsdk.GetEngine().GetCurrentWorldInfo().GRI.MissionTracker)` in the console and see what you get.
 
 This is the way by which the mod [Mission Selector](https://bl-sdk.github.io/mods/MissionSelector/) gets the `MissionTracker`, which it uses to get and set active missions.
 
