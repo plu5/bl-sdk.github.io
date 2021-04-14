@@ -271,6 +271,44 @@ It is preferrable to use `RunHook` over `RegisterHook`, since the former ensures
 
 You can discuss what you’re trying to do on the [Discord](https://discord.gg/VJXtHvh), and maybe people will chime in to help.
 
+## How to access the objects I want to modify?
+The following unrealsdk functions may be of use:
+* `unrealsdk.FindAll(ClassName: str)`: Returns a list of `unrealsdk.UObject`s found, or raises RuntimeError if none found.
+* `unrealsdk.FindClass(ClassName: str[, Lookup: bool = false])`: Returns a `unrealsdk.UClass`, or `None` if not found.
+* `unrealsdk.FindObject(ClassName: str, ObjectFullName: str)`: Returns a `unrealsdk.UObject`, or `None` if not found.
+* `unrealsdk.FindObject(Class: unrealsdk.UClass, ObjectFullName: str)`: Returns a `unrealsdk.UObject`, or `None` if not found.
+* `unrealsdk.GetEngine()`: Returns a `unrealsdk.UObject` `WillowGameEngine`. This is often used to get our player’s `PlayerController`, which can be done like this: `unrealsdk.GetEngine().GamePlayers[0].Actor`. In UE Explorer, see both `WillowGameEngine` from `WillowGame.upk` and `Engine` from `Engine.upk` for other things you can do with it.
+
+To explore these functions you can run them in the console like `py unrealsdk.Log(unrealsdk.FindAll("WillowPlayerPawn"))` and see what you get.
+
+You will notice what you get can depend on the context, like the function above will have a different `WillowPlayerPawn` instance in the second position in the list depending on the character class you have selected. Also, while on the menu on your own, you just see the two instances (the default instance and your pawn), whereas while ingame with other players, you will also see other instances on that list.
+
+**On `ClassName` and `ObjectFullName`:**
+* In BLCM Object Explorer, objects are presented like `GlobalsDefinition'GD_Globals.General.Globals'`. The part outside of the quote marks (`GlobalsDefinition`) is the `ClassName`, and the part inside of the quote marks (`GD_Globals.General.Globals`) is the `ObjectFullName`.
+* In UE Explorer you cannot see instances, just classes, but it allows you to see class definitions which can let you see how the game gets the instance you are interested in rather than getting it by name. More on that later.
+* In the `FindAll` Log output, for each item on the list the part before the space is the `ClassName`, and the part after the space is the `ObjectFullName`.
+
+**On `FindAll`:**
+
+`FindAll` is useful for exploring, but generally should only be used in code when you have to, as if you are only after a specific object there are better, and less costly performance-wise, ways to get it. Cases where you may want to use it are, for instance, iterating over all objects of a certain class, like changing a property or calling a function on all `WillowPlayerController`s. In that case you may want to note that the first result of `FindAll` is usually the default instance, in this case `WillowGame.Default__WillowPlayerController`, and skip that one.
+
+Example snippet from apple’s [Crowd Control](https://bl-sdk.github.io/mods/BorderlandsCrowdControl/) Kill Players effect:
+
+```python
+    for controller in unrealsdk.FindAll("WillowPlayerController"):
+        if controller.Name.startswith("Default__"):
+            continue
+        controller.CausePlayerDeath(True)
+```
+
+**For getting a specific object, if you know its class and full name,** you can get it like this: `unrealsdk.FindObject("GlobalsDefinition", "GD_Globals.General.Globals")`.
+
+**Getting a specific object by looking at the way the game gets it:**
+
+For example, let’s say you are interested in `MissionTracker`, which you found while exploring `WillowGame.upk` in UE Explorer. Press Ctrl+Shift+F to search in all classes for references to this object. In many places we see it being accessed with the following: `WillowGameReplicationInfo(WorldInfo.GRI).MissionTracker`. In `Engine.upk`, you can see the `Engine` has a function `GetCurrentWorldInfo()`. So, let’s try to do `unrealsdk.GetEngine().GetCurrentWorldInfo().GRI.MissionTracker`. You can try `unrealsdk.Log(unrealsdk.GetEngine().GetCurrentWorldInfo().GRI.MissionTracker)` in the console and see what you get.
+
+This is the way by which the mod [Mission Selector](https://bl-sdk.github.io/mods/MissionSelector/) gets the `MissionTracker`, which it uses to get and set active missions.
+
 ## How to publish my mod?
 Upload your mod(s) to a public repository, then to add it to this site follow the steps on [the Adding to the Database section on the main page]({{ site.baseurl }}{% link index.md %}#adding-to-the-database).
 
