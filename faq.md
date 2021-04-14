@@ -264,9 +264,9 @@ and remove them with `unrealsdk.RemoveHook(funcName: str, hookName: str)`.
 It is preferrable to use `RunHook` over `RegisterHook`, since the former ensures the hook is not registered twice.
 
 ## How to know what game objects to modify?
-* Look through decompiled UPKs, as explained in [the Writing SDK Mods section on the main page]({{ site.baseurl }}{% link index.md %}#writing-sdk-mods)
-* Look through objects in BLCM Object Explorer, and other tools described in [BLCM wiki](https://github.com/BLCM/BLCMods/wiki)
-* Look at the source of [existing PythonSDK mods]({{ site.baseurl }}{% link mods.md %})
+* Look through decompiled UPKs, as explained in [the Writing SDK Mods section on the main page]({{ site.baseurl }}{% link index.md %}#writing-sdk-mods).
+* Look through objects in BLCMM Object Explorer, and other tools described in the [BLCM wiki](https://github.com/BLCM/BLCMods/wiki). There is a guide [here](https://github.com/BLCM/BLCMods/wiki/Tutorial%3A-Getting-Started-Making-Mods#setting-up-blcmm) on how to get object data for Object Explorer, and basic usage.
+* Look at the source of [existing PythonSDK mods]({{ site.baseurl }}{% link mods.md %}).
 * Even source of text mods can help, as they can tell you what objects you can modify.
 
 You can discuss what you’re trying to do on the [Discord](https://discord.gg/VJXtHvh), and maybe people will chime in to help.
