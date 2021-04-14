@@ -163,7 +163,7 @@ To handle changes to this value in real time, you can override the method `ModOp
 
 Note that this function is called before the change to CurrentValue occurred, so we check `new_value` and not `self.MyBoolean.CurrentValue`.
 
-Also note that for backwards-compatibility reasons, upon enable of your mod this function will be called for every option that is not in a `Nested`. Do not rely on this functionality, as it may be removed in future.
+Also note that for backwards-compatibility reasons, upon enable of your mod this function will be called for every option that is not in a `Nested`. Do not rely on this functionality, as it may be removed in future. Logic addressing settings values on startup should be placed in the `Enable` method instead.
 
 You can change the values of options programmatically, but make sure to call `ModMenu.SaveModSettings(mod: ModObjects.SDKMod)` afterwards (passing an instance of your mod, or `self` if called from within your mod class) or the new values will not be updated in the mod’s `settings.json`.
 
@@ -190,6 +190,26 @@ Now "hi" will be outputted to the console whenever F3 is pressed while ingame.
 
 Any bindings can be customised by the user in Options > Keyboard / Mouse > Modded Key Bindings.
 
+If the function you give `OnPress` takes an argument, it will be passed a `ModMenu.InputEvent` enum with the input event type, which can be `Pressed` (0), `Released` (1), `Repeat` (2), `DoubleClick` (3), or `Axis` (4). This allows you to perform different actions depending on the input type, which you can use, for instance, to do something while a button is held by watching for `Pressed` and `Released`.
+
+Alternatively, there is also the `ModMenu.SDKMod` method `GameInputPressed(self, bind: ModMenu.Keybind, event: ModMenu.InputEvent)` which you can override. It will be called when any key event is performed on one of the mod’s `Keybinds`. Instead of passing an `OnPress` method when you define the `Keybind`, you can perform the associated action in this method instead.
+
+```python
+...
+class MyMod(ModMenu.SDKMod):
+    ...
+
+    HiBind = ModMenu.Keybind("Say hi", "F3")
+
+    Keybinds = [
+        HiBind,
+    ]
+
+    def GameInputPressed(self, bind: ModMenu.Keybind, event: ModMenu.InputEvent) -> None:
+        if bind == self.HiBind and event == ModMenu.InputEvent.Pressed:
+            unrealsdk.Log("hi")
+```
+
 ## How to add mod manager keybinds?
 You can have bindings the mod performs when a key is pressed in the mods menu, just like the default `Enable` by pressing `Enter`, by modifying `SettingsInput` instance variable of your mod class. This is a dictionary mapping `key`: `action`, where both are `str`. Handle the different actions by overriding `SettingsInputPressed`. See the `SDKMod` base class in `ModMenu/ModObjects.py`.
 
@@ -214,7 +234,7 @@ class MyMod(ModMenu.SDKMod):
 Now "hi" will be outputted to the console whenever H is pressed while the mod is selected in the mod manager.
 
 ## How to hook into game functions?
-You can use the `@Hook` decorator. PythonSDK will handle the registering and unregistering of hooks itself, so long as you remember to call the base class Enable/Disable if you override those methods.
+You can use the `@Hook` decorator. PythonSDK will handle the registering and removing of hooks itself, so long as you remember to call the base class Enable/Disable if you override those methods.
 
 The function you hook must have the signature:
 `([self,] caller: unrealsdk.UObject, function: unrealsdk.UFunction, params: unrealsdk.FStruct)`
@@ -231,6 +251,17 @@ class MyMod(ModMenu.SDKMod):
 ```
 
 If you do not return True the function you hooked into will not continue executing as normal, which is sometimes desired, but if you do not want that remember to return True. If I forget return True in this case, I spawn in a weird place, don’t have any money, eridium, or anything in my inventory, among other things, because we diverted the logic ordinarily handling all that.
+
+Alternatively, it is also possible to register hooks manually with `unrealsdk.RunHook(funcName: str, hookName: str, funcHook: object)`, where
+* `funcName`: a string of the game function to hook, 
+* `hookName`: a name it can be referenced by when you remove it, 
+* `funcHook`: the function you want to have called)
+
+*or* `unrealsdk.RegisterHook(..)` (same arguments), 
+
+and remove them with `unrealsdk.RemoveHook(funcName: str, hookName: str)`.
+
+It is preferrable to use `RunHook` over `RegisterHook`, since the former ensures the hook is not registered twice.
 
 ## How to know what game objects to modify?
 * Look through decompiled UPKs, as explained in [the Writing SDK Mods section on the main page]({{ site.baseurl }}{% link index.md %}#writing-sdk-mods)
