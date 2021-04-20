@@ -221,7 +221,7 @@ def sayHi() -> None:
 
 class MyMod(ModMenu.SDKMod):
     ...
-    SettingsInputs = ModMenu.SDKMod.SettingsInputs
+    SettingsInputs = ModMenu.SDKMod.SettingsInputs.copy()
     SettingsInputs["H"] = "Say hi"
     
     def SettingsInputPressed(self, action: str) -> None:
